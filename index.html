@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AspexTopia | Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            /* Warna BG & Border sesuai request: 176, 224, 230 */
+            --bg-custom: rgba(176, 224, 230, 1);
+            --border-custom: rgba(176, 224, 230, 1);
+        }
+
+        body {
+            background-color: var(--bg-custom);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Container untuk Logo Banner agar mirip Snowtopia */
+        .header-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 3px solid var(--border-custom);
+            border-radius: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            width: 100%;
+            max-width: 450px;
+            padding: 2rem;
+        }
+
+        .platform-box {
+            background: rgba(255, 255, 255, 0.35);
+            border-radius: 15px;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-left: 5px solid #fff;
+        }
+
+        .btn-play {
+            background: #2563eb;
+            color: white;
+            font-weight: bold;
+            padding: 12px;
+            border-radius: 15px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+            display: block;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-container">
+        <img src="main_menu_bg_themed.png" alt="Small Logo" class="w-32 mb-4 drop-shadow-md">
+        
+        <img src="game_title.png" alt="Game Title" class="w-72 md:w-80 drop-shadow-xl">
+    </div>
+
+    <div class="glass-card">
+        
+        <div class="mb-6 text-center">
+            <img src="newget.png" alt="NewGet Banner" class="mx-auto w-32 rounded-lg">
+        </div>
+
+        <div id="gtps-api-status" class="mb-6 text-center bg-white/20 p-3 rounded-xl border border-white/40">
+            <p class="text-blue-900 font-bold text-sm">SERVER STATUS</p>
+            <p class="text-xs text-white">Online: <span id="player-count">0</span> Players</p>
+        </div>
+
+        <div class="mb-6">
+            <h3 class="text-white font-extrabold text-lg mb-4 text-center">HOW TO PLAY</h3>
+            
+            <div class="platform-box">
+                <span class="block text-[10px] font-bold text-blue-800 uppercase tracking-wider">Android</span>
+                <span class="text-sm font-semibold text-gray-800">ptunnel, Vhost</span>
+            </div>
+
+            <div class="platform-box">
+                <span class="block text-[10px] font-bold text-purple-800 uppercase tracking-wider">iOS</span>
+                <span class="text-sm font-semibold text-gray-800">Surge5</span>
+            </div>
+
+            <div class="platform-box">
+                <span class="block text-[10px] font-bold text-gray-800 uppercase tracking-wider">Windows & Macs</span>
+                <span class="text-sm italic text-gray-500 font-medium">Coming Soon</span>
+            </div>
+        </div>
+
+        <a href="#" class="btn-play mb-3">DOWNLOAD GAME</a>
+        <a href="#" class="bg-white/40 text-blue-900 py-3 rounded-xl font-bold text-center block border border-white/50">REGISTER ACCOUNT</a>
+    </div>
+
+    <div class="mt-auto py-8 flex gap-10">
+        <a href="LINK_DISCORD_KAMU" target="_blank" class="text-white text-5xl hover:scale-110 transition">
+            <i class="fab fa-discord"></i>
+        </a>
+        <a href="LINK_WA_KAMU" target="_blank" class="text-white text-5xl hover:scale-110 transition">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+</body>
+</html>
