@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AspexTopia - GTPS Server</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0d0d0d;
+            --card-bg: #161616;
+            /* Warna Request: 176, 224, 230 (Powder Blue) */
+            --accent-color: rgb(176, 224, 230); 
+            --accent-glow: rgba(176, 224, 230, 0.25);
+            --text-main: #ffffff;
+            --text-dim: #999999;
+            --border-radius: 15px;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+        }
+
+        /* --- Header / Logo --- */
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+            margin-top: 10px;
+        }
+
+        .header img {
+            width: 130px;
+            height: auto;
+            filter: drop-shadow(0 0 10px var(--accent-glow));
+        }
+
+        /* --- Layout Cards --- */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #222;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .stat-value {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            display: block;
+            text-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- How To Play Section --- */
+        .section-title {
+            font-size: 1.1rem;
+            margin: 25px 0 15px 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .host-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #1f1f1f;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            transition: 0.2s;
+        }
+
+        .host-item:hover {
+            background: #252525;
+            transform: scale(1.02);
+        }
+
+        .host-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .host-icon {
+            font-size: 1.3rem;
+            color: var(--accent-color);
+            width: 25px;
+            text-align: center;
+        }
+
+        .host-text h4 {
+            margin: 0;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        .host-text p {
+            margin: 2px 0 0 0;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        .btn-copy {
+            background: #2a2a2a;
+            border: 1px solid #333;
+            color: var(--accent-color);
+            padding: 7px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .btn-copy:active {
+            background: var(--accent-color);
+            color: #000;
+        }
+
+        /* --- Community Section --- */
+        .community-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .com-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .discord { background: #5865F2; }
+        .whatsapp { background: #25D366; }
+
+        .com-link:hover {
+            filter: brightness(1.1);
+            transform: translateY(-3px);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="header">
+            <img src="game_title.png" alt="AspexTopia Logo">
+            <p style="color: var(--text-dim); font-size: 0.85rem; margin-top: 10px;">
+                <i class="fas fa-circle" style="color: #25D366; font-size: 8px;"></i> Real-time server status
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-label">Server Load</span>
+                    <span id="server-load" class="stat-value">0.4%</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Player Online</span>
+                    <span id="player-online" class="stat-value">37/500</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">
+            <i class="fas fa-gamepad" style="color: var(--accent-color);"></i> How To Play
+        </div>
+        <div class="card">
+            
+            <div class="host-item">
+                <div class="host-info">
+                    <i class="fas fa-bolt host-icon"></i>
+                    <div class="host-text">
+                        <h4>PowerTunnel</h4>
+                        <p>Android</p>
+                    </div>
+                </div>
+                <button class="btn-copy" onclick="copyHost('ISI_HOST_DISINI')">Copy</button>
+            </div>
+
+            <div class="host-item">
+                <div class="host-info">
+                    <i class="fab fa-apple host-icon"></i>
+                    <div class="host-text">
+                        <h4>Surge 5</h4>
+                        <p>iOS</p>
+                    </div>
+                </div>
+                <button class="btn-copy" onclick="copyHost('ISI_HOST_DISINI')">Copy</button>
+            </div>
+
+            <div class="host-item">
+                <div class="host-info">
+                    <i class="fas fa-network-wired host-icon"></i>
+                    <div class="host-text">
+                        <h4>Virtual Host</h4>
+                        <p>Android / PC</p>
+                    </div>
+                </div>
+                <button class="btn-copy" onclick="copyHost('ISI_HOST_DISINI')">Copy</button>
+            </div>
+
+            <div class="host-item">
+                <div class="host-info">
+                    <i class="fab fa-windows host-icon"></i>
+                    <div class="host-text">
+                        <h4>Windows Hosts</h4>
+                        <p>PC / Laptop</p>
+                    </div>
+                </div>
+                <button class="btn-copy" onclick="copyHost('ISI_HOST_DISINI')">Copy</button>
+            </div>
+
+        </div>
+
+        <div class="section-title">
+            <i class="fas fa-users" style="color: var(--accent-color);"></i> Community Aspex Topia
+        </div>
+        <div class="community-grid">
+            <a href="LINK_DISCORD" class="com-link discord">
+                <i class="fab fa-discord"></i> Discord
+            </a>
+            <a href="LINK_WA" class="com-link whatsapp">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+        </div>
+
+    </div>
+
+    <script>
+        // Fungsi Copy Host
+        function copyHost(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Host copied: " + text);
+            });
+        }
+
+        // Lokasi pengisian API GTPS Cloud nanti
+        async function updateStats() {
+            try {
+                // Contoh penggunaan fetch nanti:
+                // const res = await fetch('URL_API_KAMU');
+                // const data = await res.json();
+                // document.getElementById('player-online').innerText = data.online + "/500";
+            } catch (e) {
+                console.log("API belum terhubung");
+            }
+        }
+        updateStats();
+    </script>
+
+</body>
+</html>
