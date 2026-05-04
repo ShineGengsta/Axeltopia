@@ -218,7 +218,7 @@
         async function updateStats() {
             try {
                 // Fetch Data Main (Online Players)
-                const responseMain = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://api.gtps.cloud/api/server/public/2934'));
+                const responseMain = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://api.gtps.cloud/api/server/public/20034'));
                 const jsonMain = await responseMain.json();
                 const data = JSON.parse(jsonMain.contents);
 
@@ -227,7 +227,7 @@
                 }
 
                 // Fetch Data Status
-                const responseStatus = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://api.gtps.cloud/g-api/2934/status'));
+                const responseStatus = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://api.gtps.cloud/g-api/20034/status'));
                 const jsonStatus = await responseStatus.json();
                 const statusStr = jsonStatus.contents.toLowerCase();
 
