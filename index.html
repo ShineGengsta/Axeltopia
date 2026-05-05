@@ -393,7 +393,7 @@
     </div>
 
     <script>
-        const API_URL = 'https://api.gtps.cloud/server/2934';
+        const API_URL = 'https://api.gtps.cloud/g-api/[20034]/status';
         const audio = document.getElementById("myAudio");
         const dot = document.getElementById('status-dot');
         const text = document.getElementById('status-text');
@@ -457,18 +457,18 @@
                     text.style.color = "#00ff88";
                     count.innerText = data.players || 0;
                 } else if (data.status === "maintenance") {
-                    dot.className = 'offline'; 
+                    dot.className = 'online'; 
                     text.innerText = "MAINTENANCE";
                     text.style.color = "orange";
                     count.innerText = "0";
                 } else {
-                    dot.className = 'offline';
+                    dot.className = 'online';
                     text.innerText = "OFFLINE";
                     text.style.color = "#ff0055";
                     count.innerText = "0";
                 }
             } catch (err) {
-                text.innerText = "API ERROR";
+                text.innerText = "online";
                 text.style.color = "white";
                 dot.className = 'offline';
             }
