@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AspexTopia | Shine Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
+    <style>
+        :root {
+            --primary: #bc13fe;
+            --secondary: #ff0055;
+            --bg-dark: #050505;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg-dark);
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Animated Background */
+        .bg-animate {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #1a0033 0%, #050505 100%);
+            z-index: -1;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 450px;
+            margin: 40px auto;
+            padding-bottom: 50px;
+        }
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+            text-align: center;
+            transition: 0.3s ease;
+        }
+
+        .main-header { border-bottom: 3px solid var(--primary); }
+
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(188, 19, 254, 0.5);
+        }
+
+        /* Status Indicator */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 8px 16px;
+            border-radius: 50px;
+            margin-top: 15px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        #status-dot {
+            height: 10px; width: 10px; border-radius: 50%;
+            margin-right: 10px;
+            transition: 0.5s;
+        }
+
+        .online { background: #00ff88; box-shadow: 0 0 15px #00ff88; }
+        .offline { background: #ff0055; box-shadow: 0 0 15px #ff0055; }
+
+        /* Staff Section */
+        .staff-title {
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .staff-row { margin-bottom: 20px; }
+        .role-label { font-size: 0.7rem; opacity: 0.6; margin-bottom: 5px; display: block; }
+
+        .staff-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(188, 19, 254, 0.2);
+            padding: 15px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .staff-card.vip { border-color: gold; box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.1); }
+
+        .staff-name { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: bold; }
+        .staff-discord { font-size: 0.8rem; color: #7289da; }
+
+        /* Buttons */
+        .btn {
+            width: 100%;
+            padding: 18px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: block;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .btn-download {
+            background: linear-gradient(45deg, var(--primary), #7b2ff7);
+            color: white;
+            box-shadow: 0 5px 15px rgba(123, 47, 247, 0.4);
+        }
+
+        .btn-discord {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: white;
+        }
+
+        .btn:active { transform: scale(0.95); }
+
+    </style>
+</head>
+<body>
+
+    <div class="bg-animate"></div>
+
+    <div class="container">
+        <div class="glass-card main-header">
+            <h1 class="logo-text">ASPEXTOPIA</h1>
+            <div class="status-badge">
+                <div id="status-dot" class="offline"></div>
+                <span id="status-text">CONNECTING</span>
+            </div>
+            <p style="margin-top: 15px; font-size: 1.2rem;">
+                ONLINE: <span id="online-count" style="color: var(--primary); font-weight: bold;">0</span>
+            </p>
+        </div>
+
+        <div class="glass-card">
+            <h2 class="staff-title">The Hierarchy</h2>
+
+            <div class="staff-row">
+                <span class="role-label">FOUNDER & OWNER</span>
+                <div class="staff-card vip">
+                    <div style="text-align: left;">
+                        <div class="staff-name">SHINE</div>
+                        <div class="staff-discord">@shinegengsta</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="staff-row">
+                <span class="role-label">CO-FOUNDER</span>
+                <div class="staff-card">
+                    <span style="opacity: 0.3;">EMPTY SLOT</span>
+                </div>
+            </div>
+
+            <div class="staff-row">
+                <span class="role-label">STAFF TEAM</span>
+                <div class="staff-card">
+                    <span style="opacity: 0.3;">EMPTY SLOT</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-area">
+            <a href="#" class="btn btn-download">DOWNLOAD GAME</a>
+            <a href="#" class="btn btn-discord">COMMUNITY DISCORD</a>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'https://api.gtps.cloud/server/2934';
+        const dot = document.getElementById('status-dot');
+        const text = document.getElementById('status-text');
+        const count = document.getElementById('online-count');
+
+        async function updateStatus() {
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+
+                if (data.status === "online") {
+                    dot.className = 'online';
+                    text.innerText = "RUNNING";
+                    text.style.color = "#00ff88";
+                    count.innerText = data.players || 0;
+                } else {
+                    dot.className = 'offline';
+                    text.innerText = data.status.toUpperCase();
+                    text.style.color = "#ff0055";
+                    count.innerText = "0";
+                }
+            } catch (err) {
+                text.innerText = "RETRYING...";
+                dot.className = 'offline';
+            }
+        }
+
+        // Extreme Refresh: 1 Detik
+        setInterval(updateStatus, 1000);
+        updateStatus();
+    </script>
+</body>
+</html>
