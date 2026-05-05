@@ -302,7 +302,7 @@
     </div>
 
     <script>
-        const API_URL = ('https://api.gtps.cloud/g-api/2934/status');
+        const API_URL = 'https://api.gtps.cloud/g-api/2934/status';
         const audio = document.getElementById("myAudio");
         const dot = document.getElementById('status-dot');
         const text = document.getElementById('status-text');
@@ -352,11 +352,15 @@
                 }
             } catch (err) { 
                 text.innerText = "ONLINE"; 
-                dot.className = 'dot-online'dot-offline'dot-maintance';
+                dot.className = 'dot-online';
+                text.innerText = "OFFLINE";
+                dot.className = 'dot-offline';
+                text.innerText = "MAINTANCE";
+                dot.className = 'dot-maintance';
             }
         }
         
-        setInterval(updateStatus, 0);
+        setInterval(updateStatus, 1);
         updateStatus();
     </script>
 </body>
