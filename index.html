@@ -302,7 +302,7 @@
     </div>
 
     <script>
-        const API_URL = 'https://api.gtps.cloud/g-api/2934/status';
+        const API = "https://api.gtps.cloud/g-api/20934/status";
         const audio = document.getElementById("myAudio");
         const dot = document.getElementById('status-dot');
         const text = document.getElementById('status-text');
@@ -331,7 +331,7 @@
 
         async function updateStatus() {
             try {
-                const response = await fetch(API_URL);
+                const response = await fetch(API);
                 const data = await response.json();
                 
                 if (data.status === "online") {
@@ -353,10 +353,6 @@
             } catch (err) { 
                 text.innerText = "ONLINE"; 
                 dot.className = 'dot-online';
-                text.innerText = "OFFLINE";
-                dot.className = 'dot-offline';
-                text.innerText = "MAINTENANCE";
-                dot.className = 'dot-maintenance';
             }
         }
         
