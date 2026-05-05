@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AspexTopia | Official Website </title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: rgba(173, 216, 230, 0.9);
+            --primary-dim: rgba(173, 216, 230, 0.1);
+            --bg-dark: #050505;
+            --glass-card-bg: rgba(15, 15, 15, 0.9);
+            --border: rgba(173, 216, 230, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+
+        body {
+            background: var(--bg-dark);
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        #overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-dark);
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: 0.8s;
+            backdrop-filter: blur(20px);
+        }
+
+        .bg-animate {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #0a1b2e 0%, #050505 100%);
+            z-index: -1;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 480px;
+            margin: 40px auto;
+            padding-bottom: 100px;
+        }
+
+        .glass-card {
+            background: var(--glass-card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+        }
+
+        .main-header { text-align: center; border-bottom: 3px solid var(--primary); }
+
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(173, 216, 230, 0.4);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px 20px;
+            border-radius: 50px;
+            margin-top: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        #status-dot { height: 12px; width: 12px; border-radius: 50%; margin-right: 12px; }
+        .dot-online { background: #00ff88; box-shadow: 0 0 15px #00ff88; }
+        .dot-offline { background: #ff0055; box-shadow: 0 0 15px #ff0055; }
+        .dot-maintenance { background: #ffaa00; box-shadow: 0 0 15px #ffaa00; }
+
+        .section-title {
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 5px;
+            color: var(--primary);
+            margin-bottom: 25px;
+            text-align: left;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icon-box {
+            width: 45px; height: 45px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            display: flex; justify-content: center; align-items: center;
+            flex-shrink: 0;
+        }
+        .icon-box svg { width: 22px; height: 22px; fill: #fff; opacity: 0.8; }
+
+        .htp-item {
+            background: rgba(30, 30, 30, 0.4);
+            border-radius: 18px;
+            padding: 15px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: 0.3s;
+        }
+
+        .htp-info { flex-grow: 1; text-align: left; }
+        .htp-main { font-weight: 700; font-size: 1.05rem; color: #fff; }
+        .htp-sub { font-size: 0.8rem; color: rgba(255, 255, 255, 0.4); }
+
+        .htp-btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex; align-items: center; gap: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            border-radius: 18px;
+            text-decoration: none;
+            font-weight: bold;
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            transition: 0.3s;
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 15px;
+        }
+        .btn-download { background: linear-gradient(135deg, var(--primary), #fff); color: #000; }
+        
+        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .btn-social { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); color: #fff; font-size: 0.85rem; }
+
+        #music-control {
+            position: fixed; bottom: 25px; right: 25px;
+            background: var(--primary); width: 55px; height: 55px;
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            cursor: pointer; z-index: 100;
+        }
+
+        #toast {
+            position: fixed; top: 30px; left: 50%; transform: translateX(-50%);
+            background: #fff; color: #000; padding: 12px 28px;
+            border-radius: 12px; font-weight: bold; opacity: 0; transition: 0.4s; z-index: 1000;
+        }
+        #toast.show { opacity: 1; top: 40px; }
+    </style>
+</head>
+<body>
+
+    <div id="toast">Copied to clipboard!</div>
+
+    <div id="overlay">
+        <h1 class="logo-text" style="font-size: 3.5rem; margin-bottom: 30px;">ASPEXTOPIA</h1>
+        <button onclick="startPortal()" class="btn btn-download" style="width: 260px;">ENTER PORTAL</button>
+    </div>
+
+    <div class="bg-animate"></div>
+
+    <audio id="myAudio" loop>
+        <source src="https://www.image2url.com/r2/default/audio/1777973249472-c81569ed-a538-497b-87cb-ad7b22e6ed7f.m4a" type="audio/mp4">
+    </audio>
+
+    <div id="music-control" onclick="toggleMusic()">
+        <span id="music-icon">🎵</span>
+    </div>
+
+    <div class="container">
+        <div class="glass-card main-header">
+            <h1 class="logo-text">ASPEXTOPIA</h1>
+            <div class="status-badge">
+                <div id="status-dot"></div>
+                <span id="status-text">CONNECTING</span>
+            </div>
+            <p style="margin-top: 15px; font-size: 1.3rem;">
+                ONLINE: <span id="online-count" style="color: var(--primary); font-family: 'Orbitron'; font-weight: bold;">0</span>
+            </p>
+        </div>
+
+        <div class="glass-card">
+            <h2 class="section-title">
+                <svg style="width:20px; height:20px; fill:var(--primary);" viewBox="0 0 24 24"><path d="M13 10V3L4 14H11V21L20 10H13Z"/></svg>
+                Connection Hosts
+            </h2>
+            
+            <div class="htp-item">
+                <div class="icon-box"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14H11V21L20 10H13Z"/></svg></div>
+                <div class="htp-info"><div class="htp-main">PowerTunnel</div><div class="htp-sub">Android</div></div>
+                <button class="htp-btn" onclick="copyText('https://gtpshost.com/raw/AspexTopia')">Copy</button>
+            </div>
+
+            <div class="htp-item">
+                <div class="icon-box"><svg viewBox="0 0 24 24"><path d="M17.75 3.5c-.71 1.69-2.22 2.86-3.99 3.01-.02-.27-.02-.54-.02-.82 0-2.84 2.11-5.18 4.88-5.69.13.88-.04 1.83-.57 2.68.32.17.63.36.93.57.53.37 1 .81 1.39 1.31-1.09.65-1.85 1.77-1.85 3.09 0 2.01 1.63 3.64 3.64 3.64.12 0 .23-.01.35-.02-1.07 3.12-4.04 5.37-7.53 5.37-2.38 0-4.52-.96-6.08-2.52C7.39 12.56 6 10.43 6 8.01 6 3.58 9.58 0 14.01 0c.34 0 .68.02 1.02.07.03.3.05.61.05.92 0 1.28-.48 2.44-1.28 3.32-.3.33-.64.62-1 .87v.01c-.13.08-.26.15-.4.22-.04.02-.08.05-.12.07-.13.07-.27.13-.41.19-.07.03-.14.06-.21.09-.13.05-.26.1-.39.14-.09.03-.18.06-.27.09-.12.04-.25.07-.37.1-.1.02-.21.05-.31.07-.1.02-.21.04-.31.05-.12.01-.24.03-.36.04-.09 0-.19.01-.28.01zm-5.01 1.5c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></div>
+                <div class="htp-info"><div class="htp-main">Surge 5</div><div class="htp-sub">iOS</div></div>
+                <a href="https://gtpshost.com/ios/AspexTopia" target="_blank" class="htp-btn">Install</a>
+            </div>
+
+            <div class="htp-item">
+                <div class="icon-box"><svg viewBox="0 0 24 24"><path d="M12,11L12,13H10V11H12M14,11H16V13H14V11M20,11L20,13H18V11H20M4,11H6V13H4V11M8,11H8V13H8V11M4,15H20V19H4V15M4,5H20V9H4V5M7,7H5V17H7V7M19,7H17V17H19V7M13,7H11V17H13V7Z"/></svg></div>
+                <div class="htp-info"><div class="htp-main">Virtual Host</div><div class="htp-sub">Android / PC</div></div>
+                <a href="https://www.mediafire.com/file/dgjjow8n32i5ehp/AspexTopia_-_GTPSHOST.txt/file" target="_blank" class="htp-btn">Download</a>
+            </div>
+
+            <div class="htp-item">
+                <div class="icon-box"><svg viewBox="0 0 24 24"><path d="M3,12V6.33L10,5.43V11.57M3,12.67V18.33L10,19.23V13.11M11,19.36L21,20.75V13.11H11M11,11.57H21V4L11,5.39V11.57Z"/></svg></div>
+                <div class="htp-info"><div class="htp-main">Windows Hosts</div><div class="htp-sub">PC</div></div>
+                <button class="htp-btn" onclick="copyText('91.134.85.13 www.growtopia1.com\n91.134.85.13 www.growtopia2.com')">Copy</button>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <h2 class="section-title">Community</h2>
+            <div class="social-grid">
+                <a href="https://discord.gg/MS2EgbCqM" target="_blank" class="btn btn-social">Discord Server</a>
+                <a href="https://chat.whatsapp.com/CcuA7DNdp6bDbT8k3aEdpV" target="_blank" class="btn btn-social">WhatsApp Group</a>
+            </div>
+        </div>
+
+        <div class="action-area">
+            <a href="#" class="btn btn-download">Download APK (Production)</a>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'https://api.gtps.cloud/g-api/[20034]/status';
+        const audio = document.getElementById("myAudio");
+        const dot = document.getElementById('status-dot');
+        const text = document.getElementById('status-text');
+        const count = document.getElementById('online-count');
+        const toast = document.getElementById('toast');
+
+        function startPortal() {
+            document.getElementById("overlay").style.opacity = "0";
+            setTimeout(() => {
+                document.getElementById("overlay").style.display = "none";
+                audio.play().catch(() => {});
+            }, 800);
+        }
+
+        function toggleMusic() {
+            if (audio.paused) { audio.play(); document.getElementById("music-icon").innerText = "🎵"; }
+            else { audio.pause(); document.getElementById("music-icon").innerText = "🔇"; }
+        }
+
+        function copyText(val) {
+            navigator.clipboard.writeText(val).then(() => {
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2000);
+            });
+        }
+
+        async function updateStatus() {
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                
+                if (data.status === "online") {
+                    dot.className = 'dot-online';
+                    text.innerText = "ONLINE";
+                    text.style.color = "#00ff88";
+                    count.innerText = data.players || 0;
+                } else if (data.status === "maintenance") {
+                    dot.className = 'dot-maintenance';
+                    text.innerText = "MAINTENANCE";
+                    text.style.color = "#ffaa00";
+                    count.innerText = "0";
+                } else {
+                    dot.className = 'dot-offline';
+                    text.innerText = "OFFLINE";
+                    text.style.color = "#ff0055";
+                    count.innerText = "0";
+                }
+            } catch (err) { 
+                text.innerText = "OFFLINE"; 
+                dot.className = 'dot-offline';
+            }
+        }
+
+        // REFRESH SET TO 1 SECOND (1000ms)
+        setInterval(updateStatus, 1000);
+        updateStatus();
+    </script>
+</body>
+</html>
