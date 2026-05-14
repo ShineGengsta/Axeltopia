@@ -1,7 +1,25 @@
+// Fungsi untuk memaksa musik jalan saat interaksi pertama
+document.addEventListener('click', function() {
+    const audio = document.getElementById("audioTrack");
+    if (audio.paused) {
+        audio.play().catch(error => {
+            console.log("Autoplay dicegah oleh browser, menunggu interaksi.");
+        });
+    }
+}, { once: true }); // 'once: true' memastikan kode ini hanya jalan sekali saat klik pertama
+
+// Tambahan: Mencoba play saat loading selesai (beberapa browser mengizinkan)
+window.addEventListener('load', () => {
+    const audio = document.getElementById("audioTrack");
+    audio.play().catch(() => {
+        console.log("Klik layar untuk memulai musik");
+    });
+});
+
 // Fungsi Fetch API Server
 async function updateStats() {
     try {
-        const response = await fetch('https://api.gtps.cloud/g-api/20034/status');
+        const response = await fetch('https://api.gtps.cloud/api/server/public/2934');
         const data = await response.json();
         
         const statusText = document.getElementById('status-text');
