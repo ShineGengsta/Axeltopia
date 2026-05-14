@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AxelTopia - Official Website</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --bg: #000; --red: #a30000; --neon: #ff0000; --glass: rgba(255, 255, 255, 0.02); }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+        
+        body { 
+            background: var(--bg); color: #fff; display: flex; justify-content: center; padding: 20px;
+            background-image: radial-gradient(circle at 50% 50%, rgba(139, 0, 0, 0.15) 0%, transparent 80%);
+            overflow-x: hidden;
+        }
+
+        /* Scanline Overlay */
+        body::before {
+            content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2; background-size: 100% 2px, 3px 100%; pointer-events: none;
+        }
+
+        .container { width: 100%; max-width: 460px; display: flex; flex-direction: column; gap: 20px; z-index: 5; }
+        
+        /* Music Control */
+        .m-btn { position: fixed; top: 20px; right: 20px; background: var(--red); border: 2px solid #fff; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 15px var(--neon); z-index: 100; transition: 0.3s; }
+        .m-btn:hover { transform: scale(1.1); box-shadow: 0 0 25px var(--neon); }
+
+        /* Logo Upgrade */
+        .logo-area { text-align: center; margin-bottom: 10px; }
+        .logo-img { width: 220px; filter: drop-shadow(0 0 15px var(--red)); animation: floating 4s ease-in-out infinite; }
+        @keyframes floating { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-15px) rotate(2deg); } }
+
+        /* API Effect: Glow Pulse */
+        .card { 
+            background: var(--glass); backdrop-filter: blur(15px); border: 1px solid rgba(255,0,0,0.3); 
+            border-radius: 22px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: all 0.5s ease;
+        }
+        .server-online { border-color: #00ff88 !important; box-shadow: 0 0 20px rgba(0,255,136,0.2); }
+
+        .tag { font-size: 10px; font-weight: 900; color: var(--neon); text-transform: uppercase; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; letter-spacing: 1px; }
+
+        /* Team Management */
+        .staff { display: flex; align-items: center; gap: 15px; background: rgba(255,0,0,0.05); padding: 15px; border-radius: 18px; margin-bottom: 12px; border-left: 4px solid var(--neon); transition: 0.3s; }
+        .staff:hover { transform: translateX(10px); background: rgba(255,0,0,0.1); }
+        .pfp { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #fff; object-fit: cover; }
+        .staff-info b { font-size: 15px; display: block; color: #fff; text-transform: uppercase; }
+        .staff-info span { font-size: 11px; color: #ff9999; font-weight: 600; }
+        .staff-info p { font-size: 10px; color: #aaa; margin-top: 2px; font-style: italic; }
+
+        /* How To Play */
+        .how-item { background: rgba(255,255,255,0.03); padding: 16px; border-radius: 18px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.05); }
+        .how-item b { font-size: 13px; display: flex; align-items: center; gap: 8px; margin-bottom: 4px; color: #fff; }
+        .how-item p { font-size: 10px; color: #888; margin-bottom: 10px; line-height: 1.4; }
+        
+        .btn { width: 100%; padding: 12px; border-radius: 10px; font-weight: 900; border: none; cursor: pointer; font-size: 11px; transition: 0.3s; text-transform: uppercase; }
+        .btn-red { background: var(--red); color: #fff; box-shadow: 0 4px 15px rgba(163,0,0,0.3); }
+        .btn-red:hover { background: var(--neon); transform: translateY(-2px); box-shadow: 0 6px 20px var(--neon); }
+        .btn-white { background: #fff; color: #000; }
+        .btn-white:hover { background: #ccc; transform: translateY(-2px); }
+
+        .soc { display: flex; align-items: center; justify-content: space-between; background: var(--glass); padding: 16px; border-radius: 18px; text-decoration: none; color: #fff; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 10px; transition: 0.3s; }
+        .soc:hover { background: rgba(255,0,0,0.1); border-color: var(--neon); transform: scale(1.02); }
+    </style>
+</head>
+<body>
+
+    <audio id="bgm" loop><source src="https://www.image2url.com/r2/default/audio/1778740326621-854fe3ca-f8d2-4db9-896b-2397cd02fb94.m4a" type="audio/mpeg"></audio>
+    <div class="m-btn" onclick="playM()"><i id="mIco" class="fas fa-play"></i></div>
+
+    <div class="container">
+        <!-- LOGO BALIK LAGI BOS -->
+        <div class="logo-area">
+            <img src="game_title.png" class="logo-img" alt="AxelTopia Logo">
+            <h1 style="font-family: 'Orbitron'; font-size: 32px; letter-spacing: 5px; color: #fff; text-shadow: 0 0 20px var(--neon); margin-top: 10px;">AXELTOPIA</h1>
+        </div>
+
+        <!-- STATS WITH API EFFECT -->
+        <div class="card" id="mainStatCard">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <span class="tag"><i class="fas fa-bolt"></i> Server Status</span>
+                    <p id="stLabel" style="font-weight: 900; color: #444; transition: 0.3s;">INITIALIZING...</p>
+                </div>
+                <div style="text-align: right;">
+                    <p id="onVal" style="font-size: 38px; font-weight: 900; text-shadow: 0 0 15px var(--neon); transition: 0.3s;">0</p>
+                    <small style="font-size: 9px; font-weight: 900; color: var(--neon);">CITIZENS ONLINE</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- TEAM MANAGEMENT (WITH DISCORD DESCRIPTION) -->
+        <div class="card">
+            <span class="tag"><i class="fas fa-shield-halved"></i> Management Team</span>
+            <div class="staff">
+                <img src="https://cdn.discordapp.com/attachments/1503531185807032320/1504371154364792923/7f0a7aaf9839df52091d29b2604e1932.jpg?ex=6a06be51&is=6a056cd1&hm=b22c66f8a1416197bcbd30f3bdd69ac079fc015b65908b81590e055062a7ffba&" class="pfp">
+                <div class="staff-info">
+                    <b>Shine</b>
+                    <span>Founders Of Axel</span>
+                    <p><i class="fab fa-discord"></i> shinegengsta</p>
+                </div>
+            </div>
+            <div class="staff">
+                <img src="LINK_FOTO_EMPTY" class="pfp">
+                <div class="staff-info">
+                    <b>EMPTY</b>
+                    <span>CO-OWNER / DEV</span>
+                    <p><i class="fab fa-discord"></i> empty_user</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- HOW TO PLAY (COMPLETE PLATFORM) -->
+        <div class="card">
+            <span class="tag"><i class="fas fa-book-open"></i> How To Play</span>
+            
+            <div class="how-item">
+                <b><i class="fab fa-android"></i> ANDROID (POWERTUNNEL)</b>
+                <p>Download PowerTunnel di Playstore, masukkan IP Host di pengaturan DNS/Hosts.</p>
+                <button class="btn btn-red" onclick="cp('IP_SERVER_LU')">Copy IP Host</button>
+            </div>
+
+            <div class="how-item">
+                <b><i class="fab fa-apple"></i> IOS (SURGE 5)</b>
+                <p>Gunakan Surge 5 untuk tunneling. Masukkan IP Host ke dalam config file atau manual.</p>
+                <button class="btn btn-red" onclick="cp('IP_SERVER_LU')">Copy IP Host</button>
+            </div>
+
+            <div class="how-item">
+                <b><i class="fas fa-globe"></i> VIRTUAL HOST (APK VHOST)</b>
+                <p>Click the button below to download the host file axeltopia.txt.</p>
+                <button class="btn btn-white" onclick="window.open('LINK_VH_LU')">Open Portal</button>
+            </div>
+
+            <div class="how-item">
+                <b><i class="fab fa-windows"></i> WINDOWS PC</b>
+                <p>Buka Notepad sebagai Admin, edit file hosts di System32, masukkan IP Host.</p>
+                <button class="btn btn-red" onclick="cp('IP_SERVER_LU')">Copy IP Host</button>
+            </div>
+        </div>
+
+        <!-- SOCIAL -->
+        <div class="card">
+            <span class="tag"><i class="fas fa-link"></i> Nexus Network</span>
+            <a href="LINK_WA" class="soc"><i class="fab fa-whatsapp" style="color:#25d366; font-size:22px;"></i> <b>WhatsApp Group</b> <i class="fas fa-chevron-right"></i></a>
+            <a href="https://discord.gg/HDt7eDFqsq" class="soc"><i class="fab fa-discord" style="color:#5865f2; font-size:22px;"></i> <b>Discord Server</b> <i class="fas fa-chevron-right"></i></a>
+        </div>
+    </div>
+
+    <script>
+        // API UPGRADE: Efek visual berdasarkan status
+        async function getStats() {
+            try {
+                const r = await fetch('https://api.gtps.cloud/api/server/public/2934?t=' + Date.now());
+                const d = await r.json();
+                
+                const onVal = document.getElementById('onVal');
+                const stLabel = document.getElementById('stLabel');
+                const mainCard = document.getElementById('mainStatCard');
+
+                onVal.innerText = d.onlineCount || 0;
+                
+                if(d.online === true) {
+                    stLabel.innerText = "SYSTEM ACTIVE";
+                    stLabel.style.color = "#00ff88";
+                    mainCard.classList.add('server-online'); // Efek API: Border jadi hijau glow
+                } else {
+                    stLabel.innerText = "OFFLINE";
+                    stLabel.style.color = "#ff0000";
+                    mainCard.classList.remove('server-online');
+                }
+            } catch(e) { console.log("API Sync Issue"); }
+        }
+        setInterval(getStats, 5000); getStats();
+
+        const a = document.getElementById("bgm");
+        const i = document.getElementById("mIco");
+        function playM() {
+            if(a.paused) { a.play(); i.className="fas fa-pause"; }
+            else { a.pause(); i.className="fas fa-play"; }
+        }
+        function cp(t) { navigator.clipboard.writeText(t); alert("Protocol Copied!"); }
+        document.addEventListener('click', () => { if(a.paused){a.play(); i.className="fas fa-pause";} }, {once:true});
+    </script>
+</body>
+</html>
