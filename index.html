@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AxelTopia - Official Website</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --bg: #050000; --red: #ff0000; --orange: #ff6a00; --glass: rgba(20, 0, 0, 0.6); }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+        
+        body { 
+            background: var(--bg); color: #fff; display: flex; justify-content: center; padding: 20px;
+            overflow-x: hidden; position: relative;
+        }
+
+        /* Canvas untuk Efek Percikan Api */
+        #fireCanvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;
+        }
+
+        .container { width: 100%; max-width: 460px; display: flex; flex-direction: column; gap: 20px; z-index: 10; }
+        
+        /* Music Control */
+        .m-btn { position: fixed; top: 20px; right: 20px; background: var(--red); border: 2px solid #fff; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 20px var(--red); z-index: 100; }
+
+        /* Logo Area */
+        .logo-area { text-align: center; margin-bottom: 10px; }
+        .logo-img { width: 200px; filter: drop-shadow(0 0 20px var(--red)); animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+        /* Cards */
+        .card { 
+            background: var(--glass); backdrop-filter: blur(15px); border: 1px solid rgba(255,0,0,0.3); 
+            border-radius: 25px; padding: 20px; box-shadow: 0 0 30px rgba(255,0,0,0.1);
+            position: relative; overflow: hidden;
+        }
+        .card::after {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 106, 0, 0.05), transparent);
+            transform: rotate(45deg); animation: shine 6s infinite;
+        }
+        @keyframes shine { 0% { transform: translateX(-100%) rotate(45deg); } 100% { transform: translateX(100%) rotate(45deg); } }
+
+        .tag { font-size: 10px; font-weight: 900; color: var(--orange); text-transform: uppercase; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; letter-spacing: 2px; }
+
+        /* Staff Section */
+        .staff { display: flex; align-items: center; gap: 15px; background: rgba(255,0,0,0.1); padding: 15px; border-radius: 18px; margin-bottom: 12px; border-right: 4px solid var(--red); }
+        .pfp { width: 55px; height: 55px; border-radius: 50%; border: 2px solid var(--orange); object-fit: cover; }
+        .staff-info b { font-size: 16px; color: #fff; display: block; }
+        .staff-info span { font-size: 11px; color: var(--orange); font-weight: 800; }
+        .staff-info p { font-size: 10px; color: #ccc; margin-top: 3px; font-family: monospace; }
+
+        /* How To Play */
+        .how-item { background: rgba(0,0,0,0.5); padding: 18px; border-radius: 20px; margin-bottom: 12px; border: 1px solid rgba(255,106,0,0.2); }
+        .how-item b { font-size: 13px; color: #fff; display: block; margin-bottom: 5px; }
+        .how-item p { font-size: 10px; color: #aaa; margin-bottom: 12px; }
+        
+        .btn { width: 100%; padding: 12px; border-radius: 12px; font-weight: 900; border: none; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-red { background: linear-gradient(to right, #ff0000, #ff6a00); color: #fff; }
+        .btn-red:hover { transform: scale(1.03); box-shadow: 0 0 20px var(--red); }
+        .btn-white { background: #fff; color: #000; }
+
+        /* Social */
+        .soc { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.05); padding: 18px; border-radius: 20px; text-decoration: none; color: #fff; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.1); }
+    </style>
+</head>
+<body>
+
+    <canvas id="fireCanvas"></canvas>
+    <audio id="bgm" loop><source src="https://www.image2url.com/r2/default/audio/1778740326621-854fe3ca-f8d2-4db9-896b-2397cd02fb94.m4a" type="audio/mpeg"></audio>
+    <div class="m-btn" onclick="playM()"><i id="mIco" class="fas fa-play"></i></div>
+
+    <div class="container">
+        <div class="logo-area">
+            <img src="game_title.png" class="logo-img">
+            <h1 style="font-family: 'Orbitron'; font-size: 35px; color: #fff; text-shadow: 0 0 20px var(--red);">AXELTOPIA</h1>
+        </div>
+
+        <!-- STATS (MANUAL/API HYBRID) -->
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <span class="tag"><i class="fas fa-fire"></i> Server Status</span>
+                    <!-- Ganti TEXT di bawah untuk Set Manual -->
+                    <p id="stLabel" style="font-weight: 900; color: #00ff88;">SYSTEM ACTIVE</p>
+                </div>
+                <div style="text-align: right;">
+                    <!-- Ganti ANGKA di bawah untuk Set Manual -->
+                    <p id="onVal" style="font-size: 40px; font-weight: 900; color: #fff; text-shadow: 0 0 20px var(--red);">128</p>
+                    <small style="font-size: 10px; font-weight: 900; color: var(--orange);">CITIZENS ONLINE</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- TEAM MANAGEMENT -->
+        <div class="card">
+            <span class="tag"><i class="fas fa-user-secret"></i> Core Founders</span>
+            <div class="staff">
+                <img src="https://cdn.discordapp.com/attachments/1503531185807032320/1504371154364792923/7f0a7aaf9839df52091d29b2604e1932.jpg?ex=6a06be51&is=6a056cd1&hm=b22c66f8a1416197bcbd30f3bdd69ac079fc015b65908b81590e055062a7ffba&" class="pfp">
+                <div class="staff-info">
+                    <b>@Shine</b>
+                    <span>Founders</span>
+                    <p><i class="fab fa-discord"></i> shinegengsta</p>
+                </div>
+            </div>
+            <div class="staff">
+                <img src="LINK_FOTO_EMPTY" class="pfp">
+                <div class="staff-info">
+                    <b>EMPTY</b>
+                    <span>Co-Founders</span>
+                    <p><i class="fab fa-discord"></i> empty_user</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- HOW TO PLAY -->
+        <div class="card">
+            <span class="tag"><i class="fas fa-terminal"></i> How To Play</span>
+            
+            <div class="how-item">
+                <b><i class="fab fa-android"></i> ANDROID PROTOCOL</b>
+                <p>Gunakan PowerTunnel atau Virtual Host untuk menghubungkan perangkat ke server.</p>
+                <button class="btn btn-red" onclick="cp('IP_LU')">COPY HOST</button>
+            </div>
+
+            <div class="how-item">
+                <b><i class="fab fa-apple"></i> IOS PROTOCOL</b>
+                <p>Buka Surge 5, masukkan IP host di bagian konfigurasi untuk mengaktifkan akses.</p>
+                <button class="btn btn-red" onclick="cp('IP_LU')">COPY HOST</button>
+            </div>
+
+            <div class="how-item">
+                <b><i class="fas fa-globe"></i> VIRTUAL HOST</b>
+                <p>Klik tombol di bawah untuk membuka portal akses otomatis (No Root).</p>
+                <button class="btn btn-white" onclick="window.open('LINK_VH')">OPEN PORTAL</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <a href="LINK_WA" class="soc"><i class="fab fa-whatsapp" style="color:#25d366; font-size:24px;"></i> <b>WhatsApp</b> <i class="fas fa-fire"></i></a>
+            <a href="https://discord.gg/HDt7eDFqsq" class="soc"><i class="fab fa-discord" style="color:#5865f2; font-size:24px;"></i> <b>Discord</b> <i class="fas fa-fire"></i></a>
+        </div>
+    </div>
+
+    <script>
+        // --- SCRIPT PERCIKAN API (FIRE SPARKS) ---
+        const canvas = document.getElementById('fireCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + Math.random() * 100;
+                this.size = Math.random() * 3 + 1;
+                this.speedY = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 2 - 1;
+                this.opacity = 1;
+            }
+            update() {
+                this.y -= this.speedY;
+                this.x += this.speedX;
+                this.opacity -= 0.005;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(255, ${Math.random() * 150}, 0, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function handleParticles() {
+            if (particles.length < 50) particles.push(new Particle());
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].opacity <= 0) {
+                    particles.splice(i, 1);
+                    i--;
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            handleParticles();
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // --- API & CONTROLS ---
+        // Jika lo mau balik pakai API, aktifkan fungsi di bawah
+        /*
+        async function getStats() {
+            try {
+                const r = await fetch('https://api.gtps.cloud/api/server/public/2934?t=' + Date.now());
+                const d = await r.json();
+                document.getElementById('onVal').innerText = d.onlineCount || 0;
+                document.getElementById('stLabel').innerText = d.online ? "SYSTEM ACTIVE" : "OFFLINE";
+            } catch(e) {}
+        }
+        setInterval(getStats, 5000);
+        */
+
+        const a = document.getElementById("bgm");
+        const i = document.getElementById("mIco");
+        function playM() {
+            if(a.paused) { a.play(); i.className="fas fa-pause"; }
+            else { a.pause(); i.className="fas fa-play"; }
+        }
+        function cp(t) { navigator.clipboard.writeText(t); alert("IP Copied!"); }
+        document.addEventListener('click', () => { if(a.paused){a.play(); i.className="fas fa-pause";} }, {once:true});
+    </script>
+</body>
+</html>
