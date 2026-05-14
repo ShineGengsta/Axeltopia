@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AxelTopia - Official Website</title>
+    <!-- Import Font & Icon -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome untuk Icon (DC Fixed) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #020202;
+            --accent-red: #8b0000;
+            --neon-red: #ff1e1e;
+            --glass: rgba(20, 20, 20, 0.7);
+            --glass-border: rgba(255, 0, 0, 0.3);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(139, 0, 0, 0.15) 0%, transparent 70%);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 20px; z-index: 1; }
+
+        /* Animations */
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        @keyframes glow { 0%, 100% { filter: drop-shadow(0 0 10px var(--accent-red)); } 50% { filter: drop-shadow(0 0 25px var(--neon-red)); } }
+
+        /* Floating Music */
+        .music-btn {
+            position: fixed; top: 20px; right: 20px; z-index: 100;
+            background: var(--glass); border: 1px solid var(--neon-red);
+            width: 45px; height: 45px; border-radius: 50%; color: white;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; backdrop-filter: blur(5px);
+        }
+
+        /* Logo Section */
+        .header { text-align: center; margin-bottom: 10px; }
+        .logo-main { width: 220px; animation: float 4s ease-in-out infinite, glow 4s infinite; }
+        .title-text {
+            font-family: 'Orbitron', sans-serif; font-size: 35px; font-weight: 900;
+            background: linear-gradient(to bottom, #ffffff, #ff0000);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            letter-spacing: 5px; text-transform: uppercase;
+        }
+
+        /* Card Master Style */
+        .card {
+            background: var(--glass); backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border); border-radius: 24px;
+            padding: 22px; position: relative; transition: 0.4s;
+        }
+        .card:hover { border-color: var(--neon-red); transform: translateY(-3px); }
+        .tag {
+            font-size: 10px; font-weight: 800; color: var(--neon-red);
+            text-transform: uppercase; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;
+        }
+
+        /* Stats */
+        .flex-row { display: flex; justify-content: space-between; align-items: center; }
+        .stat-val { font-size: 30px; font-weight: 900; color: #fff; text-shadow: 0 0 10px var(--neon-red); }
+
+        /* Team (Fixed Below Stats) */
+        .team-row {
+            display: flex; align-items: center; gap: 15px; 
+            padding: 12px; border-radius: 18px; background: rgba(255,255,255,0.03);
+            margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.05);
+        }
+        .pfp-img { width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--neon-red); }
+        .badge { font-size: 9px; background: var(--neon-red); padding: 3px 8px; border-radius: 4px; font-weight: 900; }
+
+        /* Connections */
+        .item-box {
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0,0,0,0.3); padding: 15px; border-radius: 16px; margin-bottom: 10px;
+        }
+        .btn {
+            padding: 8px 16px; border-radius: 10px; border: none; font-weight: 900;
+            font-size: 11px; cursor: pointer; transition: 0.3s;
+        }
+        .btn-red { background: var(--accent-red); color: white; }
+        .btn-white { background: white; color: black; }
+
+        /* Social (DC Icon Fixed) */
+        .social-card {
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(255,255,255,0.03); padding: 18px; border-radius: 20px;
+            text-decoration: none; color: white; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 10px;
+        }
+        .social-card:hover { background: var(--accent-red); }
+        .social-info { display: flex; align-items: center; gap: 15px; }
+        .social-info i { font-size: 28px; width: 35px; text-align: center; }
+        
+        /* Icon Colors */
+        .fa-whatsapp { color: #25d366; }
+        .fa-discord { color: #5865f2; }
+        .social-card:hover i { color: white !important; }
+
+        /* Store */
+        .store-img { width: 100%; border-radius: 15px; border: 1px solid var(--accent-red); }
+
+    </style>
+</head>
+<body>
+
+    <audio id="mTrack" loop><source src="https://www.image2url.com/r2/default/audio/1778740326621-854fe3ca-f8d2-4db9-896b-2397cd02fb94.m4a" type="audio/mpeg"></audio>
+
+    <div class="music-btn" onclick="toggleM()">
+        <i id="mIco" class="fas fa-play"></i>
+    </div>
+
+    <div class="container">
+        <!-- Logo -->
+        <div class="header">
+            <img src="game_title.png" class="logo-main">
+            <h1 class="title-text">AxelTopia</h1>
+        </div>
+
+        <!-- 1. Stats -->
+        <div class="card">
+            <div class="flex-row">
+                <div>
+                    <span class="tag"><i class="fas fa-circle-notch fa-spin"></i> Core System</span>
+                    <p id="sText" style="font-weight: 900; color: #555;">CONNECTING...</p>
+                </div>
+                <div style="text-align: right;">
+                    <p id="pOnline" class="stat-val">0</p>
+                    <small style="color: #666; font-weight: 900;">ONLINE PLAYERS</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Team Management (Posisinya Tepat di Bawah Stat) -->
+        <div class="card">
+            <span class="tag"><i class="fas fa-crown"></i> Administration</span>
+            <div class="team-row">
+                <img src="https://cdn.discordapp.com/attachments/1503531185807032320/1504371154364792923/7f0a7aaf9839df52091d29b2604e1932.jpg?ex=6a06be51&is=6a056cd1&hm=b22c66f8a1416197bcbd30f3bdd69ac079fc015b65908b81590e055062a7ffba&" class="pfp-img">
+                <div>
+                    <p style="font-weight: 800; font-size: 15px;">shine <span class="badge">OWNER</span></p>
+                    <small style="color: #777;">@shinegengsta</small>
+                </div>
+            </div>
+            <div class="team-row">
+                <img src="LINK_FOTO_EMPTY" class="pfp-img">
+                <div>
+                    <p style="font-weight: 800; font-size: 15px;">Empty <span class="badge" style="background:#333;">CO-OWNER</span></p>
+                    <small style="color: #777;">@Empty</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Connection -->
+        <div class="card">
+            <span class="tag"><i class="fas fa-plug"></i> Connection Link</span>
+            <div class="item-box">
+                <div><p style="font-weight: 800; font-size: 13px;">Android PT</p><small style="color:#555;">Copy Host</small></div>
+                <button class="btn btn-red" onclick="copy('IP_HOST')">COPY</button>
+            </div>
+            <div class="item-box">
+                <div><p style="font-weight: 800; font-size: 13px;">Virtual Host</p><small style="color:#555;">Open Browser</small></div>
+                <button class="btn btn-white" onclick="window.open('LINK_VH')">OPEN</button>
+            </div>
+            <div class="item-box">
+                <div><p style="font-weight: 800; font-size: 13px;">Windows PC</p><small style="color:#555;">Hosts Edit</small></div>
+                <button class="btn btn-red" onclick="copy('IP_HOST')">COPY</button>
+            </div>
+        </div>
+
+        <!-- 4. Community (Discord Fixed) -->
+        <div class="card">
+            <span class="tag"><i class="fas fa-hashtag"></i> Social Media</span>
+            <a href="LINK_WA" class="social-card" target="_blank">
+                <div class="social-info">
+                    <i class="fab fa-whatsapp"></i>
+                    <div><p style="font-weight: 800;">WhatsApp Group</p><small style="color: #666;">Chat & Trade</small></div>
+                </div>
+                <i class="fas fa-chevron-right" style="opacity: 0.2;"></i>
+            </a>
+            <a href="LINK_DC" class="social-card" target="_blank">
+                <div class="social-info">
+                    <i class="fab fa-discord"></i>
+                    <div><p style="font-weight: 800;">Discord Server</p><small style="color: #666;">Official Community</small></div>
+                </div>
+                <i class="fas fa-chevron-right" style="opacity: 0.2;"></i>
+            </a>
+        </div>
+
+        <!-- 5. Shop -->
+        <div class="card">
+            <span class="tag"><i class="fas fa-shopping-cart"></i> Premium Store</span>
+            <img src="LINK_FOTO_PRICELIST" class="store-img">
+            <p style="text-align: center; margin-top: 15px; font-size: 11px; color: #ff5555; font-weight: 900; letter-spacing: 1px;">DONASI SEKARANG UNTUK ITEM EKSKLUSIF!</p>
+        </div>
+    </div>
+
+    <script>
+        const audio = document.getElementById("mTrack");
+        const ico = document.getElementById("mIco");
+
+        function toggleM() {
+            if (audio.paused) { audio.play(); ico.className = "fas fa-pause"; }
+            else { audio.pause(); ico.className = "fas fa-play"; }
+        }
+
+        function copy(t) {
+            navigator.clipboard.writeText(t);
+            alert("Host Berhasil Disalin!");
+        }
+
+        async function updateAPI() {
+            try {
+                const s = await fetch('https://api.gtps.cloud/g-api/20034/status').then(r => r.json());
+                const m = await fetch('https://api.gtps.cloud/api/server/public/2934').then(r => r.json());
+                const txt = document.getElementById('sText');
+                
+                if(s.status === "online") {
+                    txt.innerText = "SYSTEM ONLINE"; txt.style.color = "#00ff88";
+                } else {
+                    txt.innerText = "SYSTEM OFFLINE"; txt.style.color = "#ff0000";
+                }
+                document.getElementById('pOnline').innerText = m.onlineCount;
+            } catch (e) { }
+        }
+
+        setInterval(updateAPI, 5000);
+        updateAPI();
+    </script>
+</body>
+</html>
