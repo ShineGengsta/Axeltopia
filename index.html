@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AxelTopia - Official Website</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --bg: #000; --red: #a30000; --neon: #ff0000; --glass: rgba(255, 255, 255, 0.02); }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+        body { 
+            background: var(--bg); color: #fff; display: flex; justify-content: center; padding: 20px;
+            background-image: radial-gradient(circle at 50% 50%, rgba(139, 0, 0, 0.15) 0%, transparent 80%);
+        }
+        .container { width: 100%; max-width: 460px; display: flex; flex-direction: column; gap: 20px; z-index: 5; }
+        
+        /* Music Control */
+        .m-btn { position: fixed; top: 20px; right: 20px; background: var(--red); border: 2px solid #fff; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 0 15px var(--neon); z-index: 100; }
+
+        .card { background: var(--glass); backdrop-filter: blur(15px); border: 1px solid rgba(255,0,0,0.3); border-radius: 22px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .tag { font-size: 10px; font-weight: 900; color: var(--neon); text-transform: uppercase; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; letter-spacing: 1px; }
+
+        /* Team Management with Discord Info */
+        .staff { display: flex; align-items: center; gap: 15px; background: rgba(255,0,0,0.05); padding: 15px; border-radius: 18px; margin-bottom: 12px; border-left: 4px solid var(--neon); }
+        .pfp { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #fff; object-fit: cover; }
+        .staff-info b { font-size: 15px; display: block; color: #fff; }
+        .staff-info span { font-size: 11px; color: #ff9999; font-weight: 600; }
+        .staff-info p { font-size: 10px; color: #777; margin-top: 2px; }
+
+        /* How To Play (Full & Detailed) */
+        .how-item { background: rgba(255,255,255,0.03); padding: 16px; border-radius: 18px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.05); }
+        .how-item b { font-size: 13px; display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+        .how-item p { font-size: 10px; color: #888; margin-bottom: 10px; line-height: 1.4; }
+        
+        .btn { width: 100%; padding: 12px; border-radius: 10px; font-weight: 900; border: none; cursor: pointer; font-size: 11px; transition: 0.3s; text-transform: uppercase; }
+        .btn-red { background: var(--red); color: #fff; box-shadow: 0 4px 15px rgba(163,0,0,0.3); }
+        .btn-red:hover { background: var(--neon); transform: translateY(-2px); }
+        .btn-white { background: #fff; color: #000; }
+        .btn-white:hover { opacity: 0.8; transform: translateY(-2px); }
+
+        .soc { display: flex; align-items: center; justify-content: space-between; background: var(--glass); padding: 16px; border-radius: 18px; text-decoration: none; color: #fff; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 10px; transition: 0.3s; }
+        .soc:hover { background: rgba(255,0,0,0.1); border-color: var(--neon); }
+    </style>
+</head>
+<body>
+
+    <audio id="bgm" loop><source src="https://www.image2url.com/r2/default/audio/1778740326621-854fe3ca-f8d2-4db9-896b-2397cd02fb94.m4a" type="audio/mpeg"></audio>
+    <div class="m-btn" onclick="playM()"><i id="mIco" class="fas fa-play"></i></div>
+
+    <div class="container">
+        <div style="text-align: center; margin-bottom: 10px;">
+            <h1 style="font-family: 'Orbitron'; font-size: 32px; letter-spacing: 5px; color: #fff; text-shadow: 0 0 20px var(--neon);">AXELTOPIA</h1>
+        </div>
+
+        <!-- STATS -->
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <span class="tag"><i class="fas fa-bolt"></i> Server Status</span>
+                    <p id="stLabel" style="font-weight: 900; color: #444;">SYNCING...</p>
+                </div>
+                <div style="text-align: right;">
+                    <p id="onVal" style="font-size: 36px; font-weight: 900; text-shadow: 0 0 15px var(--neon);">0</p>
+                    <small style="font-size: 9px; font-weight: 900; color: var(--neon);">CITIZENS ONLINE</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- TEAM MANAGEMENT (WITH DISCORD DESCRIPTION) -->
+        <div class="card">
+            <span class="tag"><i class="fas fa-shield-halved"></i> Elite Staff</span>
+            <div class="staff">
+                <img src="https://cdn.discordapp.com/attachments/1503531185807032320/1504371154364792923/7f0a7aaf9839df52091d29b2604e1932.jpg?ex=6a06be51&is=6a056cd1&hm=b22c66f8a1416197bcbd30f3bdd69ac079fc015b65908b81590e055062a7ffba&" class="pfp">
+                <div class="staff-info">
+                    <b>Shine</b>
+                    <span>FOUNDERS</span>
+                    <p><i class="fab fa-discord"></i> shinegengsta</p>
+                </div>
+            </div>
+            <div class="staff">
+                <img src="LINK_FOTO_EMPTY" class="pfp">
+                <div class="staff-info">
+                    <b>EMPTY</b>
+                    <span>CO-OWNER</span>
+                    <p><i class="fab fa-discord"></i> empty_user</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- HOW TO PLAY (FIXED & FULL PLATFORM) -->
+        <div class="card">
+            <span class="tag"><i class="fas fa-book-open"></i> Connection Guide</span>
+            
+            <div class="how-item">
+                <b><i class="fab fa-android"></i> ANDROID HOST</b>
+                <p>Gunakan aplikasi <b>PowerTunnel</b> atau <b>Virtual Host</b>. Masukkan IP host ke dalam daftar aplikasi.</p>
+                <button class="btn btn-red" onclick="cp('IP_SERVER_LU')">Copy IP Host</button>
+            </div>
+
+            <div class="how-item">
+                <b><i class="fab fa-apple"></i> IOS HOST</b>
+                <p>Gunakan aplikasi <b>Surge 5</b>. Masukkan IP host melalui menu konfigurasi Surge untuk tunneling.</p>
+                <button class="btn btn-red" onclick="cp('IP_SERVER_LU')">Copy IP Host</button>
+            </div>
+
+            <div class="how-item">
+                <b><i class="fas fa-globe"></i> VIRTUAL HOST</b>
+                <p>Cara instan tanpa aplikasi tambahan. Langsung buka portal melalui browser untuk akses otomatis.</p>
+                <button class="btn btn-white" onclick="window.open('LINK_VH_LU')">Open Portal</button>
+            </div>
+
+            <div class="how-item">
+                <b><i class="fab fa-windows"></i> WINDOWS HOST</b>
+                <p>Edit file <b>hosts</b> di C:\Windows\System32\drivers\etc. Tambahkan IP dan nama server.</p>
+                <button class="btn btn-red" onclick="cp('IP_SERVER_LU')">Copy IP Host</button>
+            </div>
+        </div>
+
+        <!-- SOCIAL -->
+        <div class="card">
+            <span class="tag"><i class="fas fa-link"></i> Nexus Link</span>
+            <a href="LINK_WA" class="soc"><i class="fab fa-whatsapp" style="color:#25d366; font-size:22px;"></i> <b>WhatsApp Group</b> <i class="fas fa-chevron-right"></i></a>
+            <a href="https://discord.gg/HDt7eDFqsq" class="soc"><i class="fab fa-discord" style="color:#5865f2; font-size:22px;"></i> <b>Discord Server</b> <i class="fas fa-chevron-right"></i></a>
+        </div>
+    </div>
+
+    <script>
+        async function getStats() {
+            try {
+                const r = await fetch('https://api.gtps.cloud/api/server/public/2934?t=' + Date.now());
+                const d = await r.json();
+                document.getElementById('onVal').innerText = d.onlineCount || 0;
+                const l = document.getElementById('stLabel');
+                if(d.online === true) {
+                    l.innerText = "SYSTEM ACTIVE";
+                    l.style.color = "#00ff88";
+                } else {
+                    l.innerText = "OFFLINE";
+                    l.style.color = "#ff0000";
+                }
+            } catch(e) { console.log("API Error"); }
+        }
+        setInterval(getStats, 5000); getStats();
+
+        const a = document.getElementById("bgm");
+        const i = document.getElementById("mIco");
+        function playM() {
+            if(a.paused) { a.play(); i.className="fas fa-pause"; }
+            else { a.pause(); i.className="fas fa-play"; }
+        }
+        function cp(t) { navigator.clipboard.writeText(t); alert("IP Protocol Copied!"); }
+        document.addEventListener('click', () => { if(a.paused){a.play(); i.className="fas fa-pause";} }, {once:true});
+    </script>
+</body>
+</html>
