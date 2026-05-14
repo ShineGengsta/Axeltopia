@@ -229,7 +229,6 @@
 
         async function updateStatus() {
             try {
-                const s = await fetch('https://api.gtps.cloud/g-api/20034/status').then(r => r.json());
                 const m = await fetch('https://api.gtps.cloud/api/server/public/2934').then(r => r.json());
                 const txt = document.getElementById('statusTxt');
                 
@@ -241,9 +240,6 @@
                 document.getElementById('onlineVal').innerText = m.onlineCount;
             } catch (e) { }
         }
-
-        setInterval(updateStatus, 5000);
-        updateStatus();
-    </script>
+            <script src="script.js"></script>
 </body>
 </html>
